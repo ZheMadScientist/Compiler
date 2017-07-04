@@ -23,17 +23,15 @@ expr:
 
 block: expr+;
 
-inbrackets: (LKR expr* RKR TZ);
+inbrackets: (LKR expr* RKR);
 
-declaring: (TYPE ID TZ)|(TYPE ID ASSIGN VALUE TZ);
-
-/*boperation:((ID|VALUE|INNER) BOPERATOR (ID|VALUE|INNER|operation)) | (BOOL OPERATOR BOOL);
 operation: (ID|VALUE|INNER) OPERATOR (ID|VALUE|INNER|operation);
-typing: TYPE ID ASSIGN (VALUE|ID|operation|declaring|boperation);
-assignment: (ID|INNER) ASSIGN (boperation|operation|VALUE|ID|INNER);
+typing: TYPE ID assignment (VALUE|ID|operation|declaring|expr);
+assignment: (ID|INNER) ASSIGN (operation|VALUE|ID|INNER);
 printing: PRINT expr;
 structuring: STRUCT ID inbrackets;
-declaring: ID LBR RBR;*/
+declaring: ID LBR RBR;
+
 
 OPERATOR:
     PLUS
@@ -41,8 +39,7 @@ OPERATOR:
     |MULTIPLYING
     |DIVISION
     |PLUSASS
-    |MULTASS
-    |ASSIGN;
+    |MULTASS;
 
 BOPERATOR:
     EQUALS
