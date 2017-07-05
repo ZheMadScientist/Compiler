@@ -66,7 +66,7 @@ TDOUBLE: 'double';
 TBOOL: 'bool';
 TSTRING: 'string';
 VOID: 'void';
-PRINT: 'printf'| 'cout << string' | 'cout << double';
+PRINT: 'printf'| 'cout<<string' | 'cout<<double';
 
 
 //OPERATORS
