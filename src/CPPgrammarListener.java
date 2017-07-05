@@ -116,4 +116,14 @@ public interface CPPgrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitReturning(CPPgrammarParser.ReturningContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CPPgrammarParser#declaring}.
+	 * @param ctx the parse tree
+	 */
+	void enterDeclaring(CPPgrammarParser.DeclaringContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CPPgrammarParser#declaring}.
+	 * @param ctx the parse tree
+	 */
+	void exitDeclaring(CPPgrammarParser.DeclaringContext ctx);
 }

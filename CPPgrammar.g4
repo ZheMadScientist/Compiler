@@ -16,6 +16,7 @@ expr:
     |operation
     |structuring
     |returning
+    |declaring
     |LBR expr RBR
     |LKR expr RKR
     |VALUE
@@ -31,10 +32,10 @@ operation: (ID|VALUE|INNER) OPERATOR (ID|VALUE|INNER|operation);
 typing: TYPE ID ASSIGN? (VALUE|ID|operation)? (BR ID ASSIGN? (VALUE|ID|operation)?)*;
 assignment: (ID|INNER) ASSIGN (operation|VALUE|ID|INNER);
 main: TYPE 'main' innsqbrackets inbrackets;
-printing: PRINT innsqbrackets;
+printing: (PRINT innsqbrackets) | (PRINT (VALUE|INNER|ID|innsqbrackets) NLCLEAR?);
 structuring: STRUCT ID inbrackets;
 returning: RETURN (ID|VALUE|INNER);
-
+declaring: ID ID;
 
 OPERATOR:
     PLUS
@@ -66,7 +67,8 @@ TDOUBLE: 'double';
 TBOOL: 'bool';
 TSTRING: 'string';
 VOID: 'void';
-PRINT: 'printf'| 'cout<<string' | 'cout<<double';
+PRINT: 'printf'| 'cout<<' | 'cout <<';
+NLCLEAR: '<< endl'|'<<endl';
 
 
 //OPERATORS
@@ -75,16 +77,16 @@ EQUALS: '==';
 NEQUALS: '!=';
 
 ASSIGN: '=';
-PLUS: '+';
-MINUS: '-';
 MULTIPLYING: '*';
 DIVISION: '/';
+PLUS: '+';
+MINUS: '-';
 PLUSASS: '+=';
 MULTASS: '*=';
 
 RETURN: 'return';
 
-DOUBLE: '-'? [0-9]+ '.'?[0-9]*?;
+DOUBLE: '-'? [0-9]+ '.'?[0-9]*;
 BOOL: 'true'|'false';
 INNER: ID DOT ID (DOT ID)*;
 ID: ([a-zA-Z_][a-zA-Z_0-9]*);

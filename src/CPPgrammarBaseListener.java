@@ -142,6 +142,18 @@ public class CPPgrammarBaseListener implements CPPgrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitReturning(CPPgrammarParser.ReturningContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDeclaring(CPPgrammarParser.DeclaringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDeclaring(CPPgrammarParser.DeclaringContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
