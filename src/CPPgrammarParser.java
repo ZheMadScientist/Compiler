@@ -20,8 +20,7 @@ public class CPPgrammarParser extends Parser {
 		TBOOL=8, TSTRING=9, VOID=10, PRINT=11, NLCLEAR=12, EQUALS=13, NEQUALS=14, 
 		ASSIGN=15, MULTIPLYING=16, DIVISION=17, PLUS=18, MINUS=19, PLUSASS=20, 
 		MULTASS=21, RETURN=22, DOUBLE=23, BOOL=24, INNER=25, ID=26, STRING=27, 
-		DOT=28, TZ=29, BR=30, QUOTE=31, RKR=32, LKR=33, RBR=34, LBR=35, FUNC=36, 
-		WS=37;
+		DOT=28, TZ=29, BR=30, QUOTE=31, RKR=32, LKR=33, RBR=34, LBR=35, WS=36;
 	public static final int
 		RULE_expr = 0, RULE_block = 1, RULE_inbrackets = 2, RULE_innsqbrackets = 3, 
 		RULE_operation = 4, RULE_typing = 5, RULE_assignment = 6, RULE_main = 7, 
@@ -35,14 +34,14 @@ public class CPPgrammarParser extends Parser {
 		null, "'main'", null, null, null, null, "'struct'", "'double'", "'bool'", 
 		"'string'", "'void'", null, null, "'=='", "'!='", "'='", "'*'", "'/'", 
 		"'+'", "'-'", "'+='", "'*='", "'return'", null, null, null, null, null, 
-		"'.'", "';'", "','", "'\"'", "'}'", "'{'", "')'", "'('", "'func'"
+		"'.'", "';'", "','", "'\"'", "'}'", "'{'", "')'", "'('"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, null, "OPERATOR", "BOPERATOR", "VALUE", "TYPE", "STRUCT", "TDOUBLE", 
 		"TBOOL", "TSTRING", "VOID", "PRINT", "NLCLEAR", "EQUALS", "NEQUALS", "ASSIGN", 
 		"MULTIPLYING", "DIVISION", "PLUS", "MINUS", "PLUSASS", "MULTASS", "RETURN", 
 		"DOUBLE", "BOOL", "INNER", "ID", "STRING", "DOT", "TZ", "BR", "QUOTE", 
-		"RKR", "LKR", "RBR", "LBR", "FUNC", "WS"
+		"RKR", "LKR", "RBR", "LBR", "WS"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -1053,7 +1052,7 @@ public class CPPgrammarParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\'\u008d\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3&\u008d\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3"+
 		"\2\3\2\3\2\3\2\3\2\3\2\3\2\5\2.\n\2\3\3\6\3\61\n\3\r\3\16\3\62\3\4\3\4"+

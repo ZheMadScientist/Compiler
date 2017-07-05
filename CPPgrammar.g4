@@ -102,7 +102,6 @@ RKR: '}';
 LKR: '{';
 RBR: ')';
 LBR: '(';
-FUNC: 'func';
 
 WS: [\t\n\r;]+ -> skip;
 
