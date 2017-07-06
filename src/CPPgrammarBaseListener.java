@@ -39,6 +39,18 @@ public class CPPgrammarBaseListener implements CPPgrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterDeclaring(CPPgrammarParser.DeclaringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDeclaring(CPPgrammarParser.DeclaringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterInbrackets(CPPgrammarParser.InbracketsContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -142,30 +154,6 @@ public class CPPgrammarBaseListener implements CPPgrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitStructuring(CPPgrammarParser.StructuringContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterReturning(CPPgrammarParser.ReturningContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitReturning(CPPgrammarParser.ReturningContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDeclaring(CPPgrammarParser.DeclaringContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDeclaring(CPPgrammarParser.DeclaringContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

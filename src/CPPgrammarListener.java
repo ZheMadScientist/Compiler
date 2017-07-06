@@ -27,6 +27,16 @@ public interface CPPgrammarListener extends ParseTreeListener {
 	 */
 	void exitBlock(CPPgrammarParser.BlockContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CPPgrammarParser#declaring}.
+	 * @param ctx the parse tree
+	 */
+	void enterDeclaring(CPPgrammarParser.DeclaringContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CPPgrammarParser#declaring}.
+	 * @param ctx the parse tree
+	 */
+	void exitDeclaring(CPPgrammarParser.DeclaringContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CPPgrammarParser#inbrackets}.
 	 * @param ctx the parse tree
 	 */
@@ -116,24 +126,4 @@ public interface CPPgrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStructuring(CPPgrammarParser.StructuringContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CPPgrammarParser#returning}.
-	 * @param ctx the parse tree
-	 */
-	void enterReturning(CPPgrammarParser.ReturningContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CPPgrammarParser#returning}.
-	 * @param ctx the parse tree
-	 */
-	void exitReturning(CPPgrammarParser.ReturningContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CPPgrammarParser#declaring}.
-	 * @param ctx the parse tree
-	 */
-	void enterDeclaring(CPPgrammarParser.DeclaringContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CPPgrammarParser#declaring}.
-	 * @param ctx the parse tree
-	 */
-	void exitDeclaring(CPPgrammarParser.DeclaringContext ctx);
 }

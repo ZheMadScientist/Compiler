@@ -13,10 +13,11 @@ import static java.lang.Class.forName;
  * Created by MakarOn on 06.07.2017.
  */
 public class Listener extends CPPgrammarBaseListener {
+    String code = "";
 
     @Override
     public void enterInbrackets(CPPgrammarParser.InbracketsContext ctx) {
-        System.out.println(ctx.getText());
+
     }
 
     @Override
@@ -26,7 +27,7 @@ public class Listener extends CPPgrammarBaseListener {
 
     @Override
     public void enterInnsqbrackets(CPPgrammarParser.InnsqbracketsContext ctx) {
-        System.out.println(ctx.getText());
+
     }
 
     @Override
@@ -37,7 +38,7 @@ public class Listener extends CPPgrammarBaseListener {
 
     @Override
     public void enterOperation(CPPgrammarParser.OperationContext ctx) {
-        System.out.println(ctx.getText());
+        code += ctx.getText() + ";";
     }
 
     @Override
@@ -47,96 +48,103 @@ public class Listener extends CPPgrammarBaseListener {
 
     @Override
     public void enterMult_operation(CPPgrammarParser.Mult_operationContext ctx) {
-        System.out.println(ctx.getText());
+        code += ctx.getText();
     }
 
     @Override
     public void exitMult_operation(CPPgrammarParser.Mult_operationContext ctx) {
 
-
     }
 
     @Override
     public void enterTyping(CPPgrammarParser.TypingContext ctx) {
-        System.out.println(ctx.getText() + "TYPING ");
+        String alltext = ctx.getText();
+        String temp = alltext;
+        if(temp.contains("string")){
+            temp = temp.replace("string", "String ");
+        }
+        if(temp.contains("double")){
+            temp = temp.replace("double", "double ");
+        }
+        temp += ";";
+        code += temp;
     }
 
     @Override
     public void exitTyping(CPPgrammarParser.TypingContext ctx) {
-
+        code += System.lineSeparator();
     }
 
     @Override
     public void enterAssignment(CPPgrammarParser.AssignmentContext ctx) {
-        System.out.println(ctx.getText());
-
+        String[] sub = ctx.getText().split("\\=");
+        code += sub[0] + " = " + sub[1] + ";";
     }
 
     @Override
     public void exitAssignment(CPPgrammarParser.AssignmentContext ctx) {
-
+        code += System.lineSeparator();
     }
 
     @Override
     public void enterMain(CPPgrammarParser.MainContext ctx) {
-        System.out.println(ctx.getText());
+        code += "public static void main(String[] args){";
     }
 
     @Override
     public void exitMain(CPPgrammarParser.MainContext ctx) {
-
-
+        code += "\n }";
     }
 
     @Override
     public void enterPrinting(CPPgrammarParser.PrintingContext ctx) {
-        System.out.println(ctx.getText());
+        String temp = ctx.getText();
+        temp = temp.replace("printf(", "");
+        temp = temp.replace("cout<<", "");
+        temp = temp.replace("cout <<", "");
+        temp = temp.replace("<<endl", "");
+        temp = temp.replace("<< endl", "");
+        temp = temp.substring(0, temp.length()-1);
+        code += "System.out.println(" + temp + ");";
     }
 
     @Override
     public void exitPrinting(CPPgrammarParser.PrintingContext ctx) {
-
+        code += System.lineSeparator();
     }
 
     @Override
     public void enterStructuring(CPPgrammarParser.StructuringContext ctx) {
         String className = ctx.ID().getText();
-        System.out.println(className);
+        code += "class " + className + " { \n";
     }
 
     @Override
     public void exitStructuring(CPPgrammarParser.StructuringContext ctx) {
-
-    }
-
-    @Override
-    public void enterReturning(CPPgrammarParser.ReturningContext ctx) {
-        System.out.println(ctx.getText());
-    }
-
-    @Override
-    public void exitReturning(CPPgrammarParser.ReturningContext ctx) {
-
+        code += "\n }";
     }
 
     @Override
     public void enterDeclaring(CPPgrammarParser.DeclaringContext ctx) {
-        System.out.println(ctx.getText());
+        System.out.println("DECLARING");
+        code += ctx.getText() + ";";
     }
 
     @Override
     public void exitDeclaring(CPPgrammarParser.DeclaringContext ctx) {
-
-
+        code += System.lineSeparator();
     }
 
     @Override
     public void enterBlock(CPPgrammarParser.BlockContext ctx) {
-        System.out.println(ctx.getText());
+        System.out.println("ENTER");
+        code += "class Wrapper{\n";
     }
 
     @Override
     public void exitBlock(CPPgrammarParser.BlockContext ctx) {
+        code += "\n }";
+        System.out.println(code);
         System.out.println("EXIT");
     }
 
@@ -151,7 +159,6 @@ public class Listener extends CPPgrammarBaseListener {
 
     @Override
     public void enterExpr(CPPgrammarParser.ExprContext ctx) {
-        System.out.println("enterExpr");
     }
 
     @Override
