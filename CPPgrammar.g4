@@ -9,12 +9,15 @@ options
 //parser
 
 expr:
-    typing
+    main
+    |typing
     |printing
     |assignment
-    |boperation
+    |mult_operation
     |operation
     |structuring
+    |returning
+    |declaring
     |LBR expr RBR
     |LKR expr RKR
     |VALUE
@@ -24,22 +27,37 @@ expr:
 block: expr+;
 
 inbrackets: (LKR expr* RKR);
+innsqbrackets: LBR expr* RBR;
+//operation: (ID|VALUE|INNER) OPERATOR_PRIORITY_2 (ID|VALUE|INNER|operation|multy_operation);
 
-operation: (ID|VALUE|INNER) OPERATOR (ID|VALUE|INNER|operation);
-typing: TYPE ID assignment (VALUE|ID|operation|declaring|expr);
+operation:  mult_operation (OPERATOR_PRIORITY_2 mult_operation)*;
+mult_operation : (ID|VALUE) (OPERATOR_PRIORITY_1(ID|VALUE))*;
+
+typing: TYPE ID ASSIGN? (VALUE|ID|operation)? (BR ID ASSIGN? (VALUE|ID|operation)?)*;
 assignment: (ID|INNER) ASSIGN (operation|VALUE|ID|INNER);
-printing: PRINT expr;
+main: TYPE 'main' innsqbrackets inbrackets;
+printing: (PRINT innsqbrackets) | (PRINT (VALUE|INNER|ID|innsqbrackets) NLCLEAR?);
 structuring: STRUCT ID inbrackets;
-declaring: ID LBR RBR;
+returning: RETURN (ID|VALUE|INNER);
+declaring: ID ID;
 
-
-OPERATOR:
+/*PERATOR:
     PLUS
     |MINUS
     |MULTIPLYING
     |DIVISION
     |PLUSASS
+    |MULTASS;*/
+
+OPERATOR_PRIORITY_1:
+    MULTIPLYING
+    |DIVISION
     |MULTASS;
+
+OPERATOR_PRIORITY_2:
+    PLUS
+    |MINUS
+    |PLUSASS;
 
 BOPERATOR:
     EQUALS
@@ -53,7 +71,8 @@ VALUE:
 TYPE:
     TSTRING
     |TBOOL
-    |TDOUBLE;
+    |TDOUBLE
+    |VOID;
 
 //KEYWORDS
 
@@ -61,7 +80,9 @@ STRUCT: 'struct';
 TDOUBLE: 'double';
 TBOOL: 'bool';
 TSTRING: 'string';
-PRINT: 'print';
+VOID: 'void';
+PRINT: 'printf'| 'cout<<' | 'cout <<';
+NLCLEAR: '<< endl'|'<<endl';
 
 
 //OPERATORS
@@ -70,16 +91,18 @@ EQUALS: '==';
 NEQUALS: '!=';
 
 ASSIGN: '=';
-PLUS: '+';
-MINUS: '-';
 MULTIPLYING: '*';
 DIVISION: '/';
+PLUS: '+';
+MINUS: '-';
 PLUSASS: '+=';
 MULTASS: '*=';
 
-DOUBLE: '-'? [0-9]+ '.'?[0-9]+?;
+RETURN: 'return';
+
+DOUBLE: '-'? [0-9]+ '.'?[0-9]*;
 BOOL: 'true'|'false';
-INNER: ID DOT ID;
+INNER: ID DOT ID (DOT ID)*;
 ID: ([a-zA-Z_][a-zA-Z_0-9]*);
 STRING: '"'.*?'"';
 
@@ -87,13 +110,14 @@ STRING: '"'.*?'"';
 
 DOT: '.';
 TZ: ';';
+BR: ',';
 QUOTE: '"';
 RKR: '}';
 LKR: '{';
 RBR: ')';
 LBR: '(';
 
-WS: [\t\n\r;]+ -> skip;
+WS: [ \t\n\r;]+ -> skip;
 
 
 
