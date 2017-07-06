@@ -75,6 +75,18 @@ public class CPPgrammarBaseListener implements CPPgrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterMult_operation(CPPgrammarParser.Mult_operationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMult_operation(CPPgrammarParser.Mult_operationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTyping(CPPgrammarParser.TypingContext ctx) { }
 	/**
 	 * {@inheritDoc}

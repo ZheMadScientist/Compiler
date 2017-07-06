@@ -57,6 +57,16 @@ public interface CPPgrammarListener extends ParseTreeListener {
 	 */
 	void exitOperation(CPPgrammarParser.OperationContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CPPgrammarParser#mult_operation}.
+	 * @param ctx the parse tree
+	 */
+	void enterMult_operation(CPPgrammarParser.Mult_operationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CPPgrammarParser#mult_operation}.
+	 * @param ctx the parse tree
+	 */
+	void exitMult_operation(CPPgrammarParser.Mult_operationContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CPPgrammarParser#typing}.
 	 * @param ctx the parse tree
 	 */

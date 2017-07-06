@@ -2,7 +2,7 @@ struct Coordinates
 
 {
 
-double x,y;
+double x, y;
 
 };
 
@@ -18,7 +18,7 @@ Coordinates coord;
 
 };
 
-void main ()
+void main()
 
 {
 
@@ -34,12 +34,12 @@ Petya.coord.x = 55.25;
 
 Petya.coord.x = 27.12;
 
-print(Petya.name);
+cout<<Petya.name<<endl;
 
-print(Petya.weight);
+cout << (Petya.weight)<<endl;
 
-Petya.weight *= weight / 10;
+Petya.weight *= Petya.weight / 10;
 
-print(Petya.weight);
+cout << (Petya.weight);
 
 }

@@ -13,6 +13,7 @@ expr:
     |typing
     |printing
     |assignment
+    |mult_operation
     |operation
     |structuring
     |returning
@@ -27,8 +28,11 @@ block: expr+;
 
 inbrackets: (LKR expr* RKR);
 innsqbrackets: LBR expr* RBR;
+//operation: (ID|VALUE|INNER) OPERATOR_PRIORITY_2 (ID|VALUE|INNER|operation|multy_operation);
 
-operation: (ID|VALUE|INNER) OPERATOR (ID|VALUE|INNER|operation);
+operation:  mult_operation (OPERATOR_PRIORITY_2 mult_operation)*;
+mult_operation : (ID|VALUE) (OPERATOR_PRIORITY_1(ID|VALUE))*;
+
 typing: TYPE ID ASSIGN? (VALUE|ID|operation)? (BR ID ASSIGN? (VALUE|ID|operation)?)*;
 assignment: (ID|INNER) ASSIGN (operation|VALUE|ID|INNER);
 main: TYPE 'main' innsqbrackets inbrackets;
@@ -37,13 +41,23 @@ structuring: STRUCT ID inbrackets;
 returning: RETURN (ID|VALUE|INNER);
 declaring: ID ID;
 
-OPERATOR:
+/*PERATOR:
     PLUS
     |MINUS
     |MULTIPLYING
     |DIVISION
     |PLUSASS
+    |MULTASS;*/
+
+OPERATOR_PRIORITY_1:
+    MULTIPLYING
+    |DIVISION
     |MULTASS;
+
+OPERATOR_PRIORITY_2:
+    PLUS
+    |MINUS
+    |PLUSASS;
 
 BOPERATOR:
     EQUALS
@@ -103,7 +117,7 @@ LKR: '{';
 RBR: ')';
 LBR: '(';
 
-WS: [\t\n\r;]+ -> skip;
+WS: [ \t\n\r;]+ -> skip;
 
 
 
