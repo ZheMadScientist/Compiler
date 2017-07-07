@@ -44,7 +44,7 @@ public class Listener extends CPPgrammarBaseListener {
 
     @Override
     public void exitOperation(CPPgrammarParser.OperationContext ctx) {
-
+        code += "\n";
     }
 
     @Override
@@ -67,6 +67,7 @@ public class Listener extends CPPgrammarBaseListener {
         if(temp.contains("double")){
             temp = temp.replace("double", "double ");
         }
+        temp = temp.replace("=", " = ");
         code += temp;
     }
 
@@ -88,7 +89,7 @@ public class Listener extends CPPgrammarBaseListener {
 
     @Override
     public void enterMain(CPPgrammarParser.MainContext ctx) {
-        code += "public static void main(String[] args){ \n";
+        code += "public static void main(String[] args){ \n \n" ;
     }
 
     @Override
@@ -116,7 +117,7 @@ public class Listener extends CPPgrammarBaseListener {
     @Override
     public void enterStructuring(CPPgrammarParser.StructuringContext ctx) {
         String className = ctx.ID().getText();
-        code += "class " + className + " { \n";
+        code += "public static class " + className + " { \n \n";
     }
 
     @Override
@@ -126,8 +127,11 @@ public class Listener extends CPPgrammarBaseListener {
 
     @Override
     public void enterDeclaring(CPPgrammarParser.DeclaringContext ctx) {
+        String temp = ctx.getText();
         String firstID = ctx.ID(0).getText();
-        code += firstID + " " + ctx.getText().replace(firstID, "");
+        temp = temp.replace(firstID, "");
+        temp = temp.replace(";","");
+        code += firstID + " " + temp + " = new " + firstID + "();";
     }
 
     @Override
@@ -138,7 +142,7 @@ public class Listener extends CPPgrammarBaseListener {
     @Override
     public void enterBlock(CPPgrammarParser.BlockContext ctx) {
         System.out.println("ENTER");
-        code += "class Wrapper{\n";
+        code += "class Wrapper{\n \n";
     }
 
     @Override
