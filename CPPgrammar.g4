@@ -14,7 +14,7 @@ expr:
     |printing
     |assignment
     |declaring
-    |mult_operation
+    //|mult_operation
     |operation
     |structuring
     |LBR expr RBR
@@ -25,19 +25,18 @@ expr:
 
 block: expr+;
 
-declaring: ID ID | ID;
+declaring: ID ID TZ;
 inbrackets: (LKR expr* RKR);
 innsqbrackets: LBR expr* RBR;
-//operation: (ID|VALUE|INNER) OPERATOR_PRIORITY_2 (ID|VALUE|INNER|operation|multy_operation);
 
-operation:  mult_operation (OPERATOR_PRIORITY_2 mult_operation)*;
-mult_operation : (VALUE|INNER|ID) (OPERATOR_PRIORITY_1(ID|VALUE|INNER))+;
+operation:  mult_operation (OPERATOR_PRIORITY_2 mult_operation)* TZ;
+mult_operation : (VALUE|INNER|ID) (OPERATOR_PRIORITY_1(ID|VALUE|INNER))*;
 
-typing: TYPE ID ASSIGN? (VALUE|ID|operation)? (BR ID ASSIGN? (VALUE|ID|operation)?)*;
-assignment: (ID|INNER) ASSIGN (operation|VALUE|ID|INNER);
+typing: TYPE ID ASSIGN? (VALUE|ID|operation)? TZ? (BR ID ASSIGN? (VALUE|ID|operation)?)* TZ?;
+assignment: (ID|INNER) ASSIGN (operation|VALUE|ID|INNER) TZ;
 main: TYPE 'main' innsqbrackets inbrackets;
-printing: (PRINT innsqbrackets) | (PRINT (VALUE|INNER|ID|innsqbrackets) NLCLEAR?);
-structuring: STRUCT ID inbrackets;
+printing: (PRINT innsqbrackets TZ) | (PRINT (VALUE|INNER|ID|innsqbrackets) NLCLEAR? TZ);
+structuring: STRUCT ID inbrackets TZ;
 
 
 /*PERATOR:
@@ -116,7 +115,7 @@ LKR: '{';
 RBR: ')';
 LBR: '(';
 
-WS: [ \t\n\r;]+ -> skip;
+WS: [ \t\n\r]+ -> skip;
 
 
 

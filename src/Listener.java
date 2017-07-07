@@ -38,7 +38,8 @@ public class Listener extends CPPgrammarBaseListener {
 
     @Override
     public void enterOperation(CPPgrammarParser.OperationContext ctx) {
-        code += ctx.getText() + ";";
+        code += ctx.getText() + "\n";
+
     }
 
     @Override
@@ -48,7 +49,7 @@ public class Listener extends CPPgrammarBaseListener {
 
     @Override
     public void enterMult_operation(CPPgrammarParser.Mult_operationContext ctx) {
-        code += ctx.getText();
+
     }
 
     @Override
@@ -66,7 +67,6 @@ public class Listener extends CPPgrammarBaseListener {
         if(temp.contains("double")){
             temp = temp.replace("double", "double ");
         }
-        temp += ";";
         code += temp;
     }
 
@@ -78,7 +78,7 @@ public class Listener extends CPPgrammarBaseListener {
     @Override
     public void enterAssignment(CPPgrammarParser.AssignmentContext ctx) {
         String[] sub = ctx.getText().split("\\=");
-        code += sub[0] + " = " + sub[1] + ";";
+        code += sub[0] + " = " + sub[1];
     }
 
     @Override
@@ -88,7 +88,7 @@ public class Listener extends CPPgrammarBaseListener {
 
     @Override
     public void enterMain(CPPgrammarParser.MainContext ctx) {
-        code += "public static void main(String[] args){";
+        code += "public static void main(String[] args){ \n";
     }
 
     @Override
@@ -121,13 +121,13 @@ public class Listener extends CPPgrammarBaseListener {
 
     @Override
     public void exitStructuring(CPPgrammarParser.StructuringContext ctx) {
-        code += "\n }";
+        code += "\n }\n";
     }
 
     @Override
     public void enterDeclaring(CPPgrammarParser.DeclaringContext ctx) {
-        System.out.println("DECLARING");
-        code += ctx.getText() + ";";
+        String firstID = ctx.ID(0).getText();
+        code += firstID + " " + ctx.getText().replace(firstID, "");
     }
 
     @Override
@@ -164,5 +164,8 @@ public class Listener extends CPPgrammarBaseListener {
     @Override
     public void exitExpr(CPPgrammarParser.ExprContext ctx) {
 
+    }
+    public String getCode(){
+        return code;
     }
 }
