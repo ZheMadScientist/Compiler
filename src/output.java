@@ -1,6 +1,4 @@
-Main-Class: Wrapper 
- 
-class Wrapper{
+class output{
  
 public static class Coordinates { 
  

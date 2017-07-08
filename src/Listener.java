@@ -142,8 +142,8 @@ public class Listener extends CPPgrammarBaseListener {
     @Override
     public void enterBlock(CPPgrammarParser.BlockContext ctx) {
         System.out.println("ENTER");
-        code += "Main-Class: Wrapper \n \n";
-        code += "class Wrapper{\n \n";
+        //code += "package pkg; \n \n";
+        code += "class output{\n \n";
     }
 
     @Override

@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.jar.Attributes;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
@@ -52,7 +53,10 @@ public class Interpretor {
                 byte buffer[] = new byte[BUFFER_SIZE];
                 // Open archive file
                 FileOutputStream stream = new FileOutputStream(archiveFile);
-                JarOutputStream out = new JarOutputStream(stream, new Manifest());
+                Manifest manifest = new Manifest();
+                manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
+                manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, "output");
+                JarOutputStream out = new JarOutputStream(stream, manifest);
 
                 for (int i = 0; i < tobeJared.length; i++) {
                     if (tobeJared[i] == null || !tobeJared[i].exists()
@@ -86,6 +90,7 @@ public class Interpretor {
         }
     }
     public static void main(String[] args) {
+
         StringBuffer buf = new StringBuffer("");
         Helper h = new Helper();
         try {
