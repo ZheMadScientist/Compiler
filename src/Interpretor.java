@@ -32,15 +32,15 @@ public class Interpretor {
 
             path = System.getProperty("user.dir") + "\\res\\test.txt";
 
-            outPath = System.getProperty("user.dir") + "\\res\\Java\\Wrapper.java";
+            outPath = System.getProperty("user.dir") + "\\res\\Java\\Wrapper1.java";
         }
-        static void outWrite(String code){
+        static void outWrite(String code, String testName){
             String[] lines = code.split("\n");
             List<String> output = new ArrayList<>();
             for(int i = 0; i < lines.length; i++){
                 output.add(lines[i]);
             }
-            Path file = Paths.get(System.getProperty("user.dir") + "\\res\\Java\\Wrapper.java");
+            Path file = Paths.get(System.getProperty("user.dir") + "\\res\\Java\\" + testName + ".java");
             try {
                 Files.write(file, output, Charset.forName("UTF-8"));
             } catch (IOException e) {
@@ -58,7 +58,7 @@ public class Interpretor {
                 FileOutputStream stream = new FileOutputStream(archiveFile);
                 Manifest manifest = new Manifest();
                 manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
-                manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, "Wrapper");
+                manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, "Wrapper1");
                 JarOutputStream out = new JarOutputStream(stream, manifest);
 
                 for (int i = 0; i < tobeJared.length; i++) {
@@ -99,7 +99,6 @@ public class Interpretor {
         StringBuffer buf = new StringBuffer("");
         Helper h = new Helper();
         try {
-            System.out.println(h.path);
             File file = new File(h.path);
 
             FileInputStream in = new FileInputStream(file);
@@ -130,24 +129,23 @@ public class Interpretor {
 
         // Specify our entry point
         // Walk it and attach our listener
-        Listener listener = new Listener();
+        Listener listener = new Listener("Wrapper1");
         //String code = listener.
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(listener, tree);
 
-        Helper.outWrite(listener.getCode());
+        Helper.outWrite(listener.getCode(), "Wrapper1");
         File out = new File(System.getProperty("user.dir") + "\\res\\Jar\\output.jar");
         File toJar = new File(h.outPath);
-        Helper.createJarArchive(out, new File[]{toJar});
+        //Helper.createJarArchive(out, new File[]{toJar});//converting to jar
 
         compileOut(toJar);
     }
 
     public static void compileOut(File file){
-        //File root = new File("C:\\Users\\MakarOn\\Documents\\GitHub\\Compiler\\res\\Java");
         File root = new File(System.getProperty("user.dir") + "\\res\\Java");
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-        compiler.run(null, null, System.out, file.getPath());
+        compiler.run(null, System.out, System.out, file.getPath());
 
         try {
             URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] { root.toURI().toURL() });

@@ -13,6 +13,11 @@ import static java.lang.Class.forName;
  * Created by MakarOn on 06.07.2017.
  */
 public class Listener extends CPPgrammarBaseListener {
+
+    public Listener(String className){
+        testName = className;
+    }
+    String testName = "";
     String code = "";
 
     @Override
@@ -141,7 +146,7 @@ public class Listener extends CPPgrammarBaseListener {
 
     @Override
     public void enterBlock(CPPgrammarParser.BlockContext ctx) {
-        code += "public class Wrapper{\n \n";
+        code += "public class " + testName + "{\n \n";
     }
 
     @Override
