@@ -55,6 +55,7 @@ public class Interpretor {
                 FileOutputStream stream = new FileOutputStream(archiveFile);
                 Manifest manifest = new Manifest();
                 manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
+                manifest.getMainAttributes().put(Attributes.Name.CLASS_PATH, "");
                 manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, "output");
                 JarOutputStream out = new JarOutputStream(stream, manifest);
 
@@ -131,7 +132,7 @@ public class Interpretor {
         walker.walk(listener, tree);
 
         Helper.outWrite(listener.getCode());
-        File out = new File(System.getProperty("user.dir") + "\\res\\Jar\\out.jar");
+        File out = new File(System.getProperty("user.dir") + "\\res\\Jar\\output.jar");
         File toJar = new File(h.outPath);
         Helper.createJarArchive(out, new File[]{toJar});
     }

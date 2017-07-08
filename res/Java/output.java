@@ -1,4 +1,4 @@
-class output{
+public class output{
  
 public static class Coordinates { 
  
