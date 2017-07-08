@@ -2,11 +2,12 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.tools.JavaCompiler;
+import javax.tools.ToolProvider;
+import java.io.*;
+import java.lang.reflect.Constructor;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,7 +32,7 @@ public class Interpretor {
 
             path = System.getProperty("user.dir") + "\\res\\test.txt";
 
-            outPath = System.getProperty("user.dir") + "\\res\\Java\\output.java";
+            outPath = System.getProperty("user.dir") + "\\res\\Java\\Wrapper.java";
         }
         static void outWrite(String code){
             String[] lines = code.split("\n");
@@ -39,12 +40,14 @@ public class Interpretor {
             for(int i = 0; i < lines.length; i++){
                 output.add(lines[i]);
             }
-            Path file = Paths.get(System.getProperty("user.dir") + "\\res\\Java\\output.java");
+            Path file = Paths.get(System.getProperty("user.dir") + "\\res\\Java\\Wrapper.java");
             try {
                 Files.write(file, output, Charset.forName("UTF-8"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
         }
 
         final static int BUFFER_SIZE = 3000;
@@ -55,8 +58,7 @@ public class Interpretor {
                 FileOutputStream stream = new FileOutputStream(archiveFile);
                 Manifest manifest = new Manifest();
                 manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
-                manifest.getMainAttributes().put(Attributes.Name.CLASS_PATH, "");
-                manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, "output");
+                manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, "Wrapper");
                 JarOutputStream out = new JarOutputStream(stream, manifest);
 
                 for (int i = 0; i < tobeJared.length; i++) {
@@ -89,6 +91,8 @@ public class Interpretor {
                 System.out.println("Error: " + ex.getMessage());
             }
         }
+
+
     }
     public static void main(String[] args) {
 
@@ -135,5 +139,29 @@ public class Interpretor {
         File out = new File(System.getProperty("user.dir") + "\\res\\Jar\\output.jar");
         File toJar = new File(h.outPath);
         Helper.createJarArchive(out, new File[]{toJar});
+
+        compileOut(toJar);
+    }
+
+    public static void compileOut(File file){
+        //File root = new File("C:\\Users\\MakarOn\\Documents\\GitHub\\Compiler\\res\\Java");
+        File root = new File(System.getProperty("user.dir") + "\\res\\Java");
+        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        compiler.run(null, null, System.out, file.getPath());
+
+        try {
+            URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] { root.toURI().toURL() });
+
+            Class<?> cls = Class.forName("Wrapper", true, classLoader);
+            Object instance = cls.newInstance();
+
+            System.out.println(instance);
+
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }

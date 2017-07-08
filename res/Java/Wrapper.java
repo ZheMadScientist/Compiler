@@ -1,4 +1,4 @@
-public class output{
+public class Wrapper{
  
 public static class Coordinates { 
  

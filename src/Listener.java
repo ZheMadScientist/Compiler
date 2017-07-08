@@ -141,16 +141,12 @@ public class Listener extends CPPgrammarBaseListener {
 
     @Override
     public void enterBlock(CPPgrammarParser.BlockContext ctx) {
-        System.out.println("ENTER");
-        //code += "package pkg; \n \n";
-        code += "public class output{\n \n";
+        code += "public class Wrapper{\n \n";
     }
 
     @Override
     public void exitBlock(CPPgrammarParser.BlockContext ctx) {
         code += "\n }";
-        System.out.println(code);
-        System.out.println("EXIT");
     }
 
     @Override
