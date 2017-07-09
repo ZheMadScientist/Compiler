@@ -1,0 +1,10 @@
+void main(){
+      double a = 88;
+      double b = 2;
+      b += a / b;
+      a += b / a;
+      b *= a * b;
+      a *= a * b;
+      cout<<a;
+      cout<<b;
+       }

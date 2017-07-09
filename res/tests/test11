@@ -1,0 +1,8 @@
+void main(){
+double a = 1;
+double b = 1;
+string s = "text";
+string s1 = "text";
+cout<<(a!=b);
+cout<<( s!=s1);
+ }

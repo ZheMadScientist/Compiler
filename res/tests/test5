@@ -1,0 +1,6 @@
+void main(){
+  string a = "str" + 1;
+  string b = "!";
+  b = b + a;
+  cout<<b;
+   }

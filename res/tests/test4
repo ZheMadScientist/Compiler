@@ -1,0 +1,8 @@
+void main(){
+cout<< (1234.32453);
+cout<<12432;
+cout<< ("text");
+cout<<"text1"<<endl;
+cout<<("text2")<<endl;
+cout<<"";
+ }

@@ -1,0 +1,12 @@
+void main(){
+    double x , y;
+    x = 9;
+    y = 100;
+    cout<<x;
+    cout<<y;
+    x = x + y;
+    y = x - y;
+    x = x - y;
+    cout<<x;
+    cout<<y;
+  }

@@ -4,7 +4,9 @@
 Скомпилированные классы появятся в папке res\Java.compiled
 
 Для их запуска в папке res лежит скрипт run.cmd
+!При запуске скриптом автоматического тестирования (run.cmd) возможен вывод ошибок в консоль из-за того, что java компилятор компилирует вложенные классы в отдельные файлы
 
 Скрипт clean.cmd удаляет генерируемые файлы из папок src, res\Java и res\Java.compiled
 
 Скрипт gen.cmd обновляет генерируемые грамматикой файлы (CPPgrammarListener, CPPgrammarBaseListener, CPPgrammarLexer, CPPgrammarParser, CPPgrammar.tokens, CPPgrammarLexer.tokens)
+
