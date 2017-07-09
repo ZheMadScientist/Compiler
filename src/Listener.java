@@ -1,13 +1,4 @@
-import org.antlr.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.ParserRuleContext;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import static java.lang.Class.forName;
 
 /**
  * Created by MakarOn on 06.07.2017.
