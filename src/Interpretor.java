@@ -18,6 +18,9 @@ import java.util.jar.Attributes;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
+import java.util.stream.Stream;
+
+import static java.lang.System.out;
 
 /**
  * Created by MakarOn on 06.07.2017.
@@ -28,9 +31,7 @@ public class Interpretor {
         static String path;
         static String outPath;
         Helper(){
-            //URL url = getClass().getResource("res/test.txt");
-
-            path = System.getProperty("user.dir") + "\\res\\test.txt";
+            path = System.getProperty("user.dir") + "\\res\\tests";
 
             outPath = System.getProperty("user.dir") + "\\res\\Java\\Wrapper1.java";
         }
@@ -50,72 +51,38 @@ public class Interpretor {
 
         }
 
-        final static int BUFFER_SIZE = 3000;
-        static void createJarArchive(File archiveFile, File[] tobeJared) {
-            try {
-                byte buffer[] = new byte[BUFFER_SIZE];
-                // Open archive file
-                FileOutputStream stream = new FileOutputStream(archiveFile);
-                Manifest manifest = new Manifest();
-                manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
-                manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, "Wrapper1");
-                JarOutputStream out = new JarOutputStream(stream, manifest);
-
-                for (int i = 0; i < tobeJared.length; i++) {
-                    if (tobeJared[i] == null || !tobeJared[i].exists()
-                            || tobeJared[i].isDirectory())
-                        continue; // Just in case...
-                    System.out.println("Adding " + tobeJared[i].getName());
-
-                    // Add archive entry
-                    JarEntry jarAdd = new JarEntry(tobeJared[i].getName());
-                    jarAdd.setTime(tobeJared[i].lastModified());
-                    out.putNextEntry(jarAdd);
-
-                    // Write file to archive
-                    FileInputStream in = new FileInputStream(tobeJared[i]);
-                    while (true) {
-                        int nRead = in.read(buffer, 0, buffer.length);
-                        if (nRead <= 0)
-                            break;
-                        out.write(buffer, 0, nRead);
-                    }
-                    in.close();
-                }
-
-                out.close();
-                stream.close();
-                System.out.println("Adding completed OK");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                System.out.println("Error: " + ex.getMessage());
-            }
-        }
-
 
     }
-    public static void main(String[] args) {
 
-        StringBuffer buf = new StringBuffer("");
-        Helper h = new Helper();
-        try {
-            File file = new File(h.path);
-
-            FileInputStream in = new FileInputStream(file);
-
-            int i;
-
-            while ((i = in.read()) != -1) {
-
-                // convert byte to char and append to StringBuffer
-
-                buf.append((char) i);
-
-            }
-        } catch (Exception e) {
-            System.out.println("ERROR");
-
+    public  static void moveFiles() throws IOException {
+        String path = System.getProperty("user.dir") + "\\res\\Java";
+        String newPath = System.getProperty("user.dir") + "\\res\\Java.compiled\\";
+        try (Stream<Path> paths = Files.walk(Paths.get(path))) {
+            paths
+                    .filter(Files::isRegularFile)
+                    .forEach(x -> {
+                        if(x.toString().endsWith("class")){
+                        File f = x.toFile();
+                        f.renameTo(new File(newPath + f.getName()));
+                    }});
         }
+
+    }
+
+    public  static  void parseFile(File file) throws IOException {
+        StringBuffer buf = new StringBuffer("");
+
+        FileInputStream in = new FileInputStream(file);
+
+        int i;
+
+        while ((i = in.read()) != -1) {
+
+            // convert byte to char and append to StringBuffer
+
+            buf.append((char) i);
+        }
+
 
         String input = buf.toString();
         CPPgrammarLexer lexer = new CPPgrammarLexer(new ANTLRInputStream(input));
@@ -129,31 +96,60 @@ public class Interpretor {
 
         // Specify our entry point
         // Walk it and attach our listener
-        Listener listener = new Listener("Wrapper1");
+        Listener listener = new Listener(file.getName());
         //String code = listener.
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(listener, tree);
 
-        Helper.outWrite(listener.getCode(), "Wrapper1");
-        File out = new File(System.getProperty("user.dir") + "\\res\\Jar\\output.jar");
-        File toJar = new File(h.outPath);
-        //Helper.createJarArchive(out, new File[]{toJar});//converting to jar
+        String path =  System.getProperty("user.dir") + "\\res\\Java\\" + file.getName() + ".java";
+        out.println(path);
+
+        Helper.outWrite(listener.getCode(), file.getName());
+        File toJar = new File(path);
 
         compileOut(toJar);
+    }
+
+    public static void main(String[] args) {
+        Helper h = new Helper();
+        try {
+
+            try (Stream<Path> paths = Files.walk(Paths.get(h.path))) {
+                paths
+                        .filter(Files::isRegularFile)
+                        .forEach(x -> {
+                            try {
+                                parseFile(new File(x.toUri()));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            moveFiles();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void compileOut(File file){
         File root = new File(System.getProperty("user.dir") + "\\res\\Java");
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-        compiler.run(null, System.out, System.out, file.getPath());
+        compiler.run(null, out, out, file.getPath());
 
         try {
             URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] { root.toURI().toURL() });
 
-            Class<?> cls = Class.forName("Wrapper", true, classLoader);
+            Class<?> cls = Class.forName(file.getName().replace(".java", ""), true, classLoader);
             Object instance = cls.newInstance();
 
-            System.out.println(instance);
+            out.println(instance);
 
 
         }

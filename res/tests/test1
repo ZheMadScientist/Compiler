@@ -1,0 +1,19 @@
+struct Coordinates
+
+ {
+
+ double x, y;
+
+ };
+
+ struct Human
+
+ {
+
+ string name;
+
+ double weight;
+
+ Coordinates coord;
+
+ };
