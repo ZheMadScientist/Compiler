@@ -52,22 +52,34 @@ public class Interpretor {
         }
 
 
-    }
+        public  static void moveFiles() throws IOException {
+            String path = System.getProperty("user.dir") + "\\res\\Java";
+            String newPath = System.getProperty("user.dir") + "\\res\\Java.compiled\\";
+            try (Stream<Path> paths = Files.walk(Paths.get(path))) {
+                paths
+                        .filter(Files::isRegularFile)
+                        .forEach(x -> {
+                            if(x.toString().endsWith("class")){
+                                File f = x.toFile();
+                                f.renameTo(new File(newPath + f.getName()));
+                            }});
+            }
 
-    public  static void moveFiles() throws IOException {
-        String path = System.getProperty("user.dir") + "\\res\\Java";
-        String newPath = System.getProperty("user.dir") + "\\res\\Java.compiled\\";
-        try (Stream<Path> paths = Files.walk(Paths.get(path))) {
-            paths
-                    .filter(Files::isRegularFile)
-                    .forEach(x -> {
-                        if(x.toString().endsWith("class")){
-                        File f = x.toFile();
-                        f.renameTo(new File(newPath + f.getName()));
-                    }});
         }
 
+        public  static void cleanFolder() throws IOException {
+            String path = System.getProperty("user.dir") + "\\res\\Java.compiled\\";
+            try (Stream<Path> paths = Files.walk(Paths.get(path))) {
+                paths
+                        .filter(Files::isRegularFile)
+                        .forEach(x -> x.toFile().delete());
+            }
+
+        }
+
+
     }
+
 
     public  static  void parseFile(File file) throws IOException {
         StringBuffer buf = new StringBuffer("");
@@ -111,6 +123,11 @@ public class Interpretor {
     }
 
     public static void main(String[] args) {
+        try {
+            Helper.cleanFolder();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Helper h = new Helper();
         try {
 
@@ -119,7 +136,7 @@ public class Interpretor {
                         .filter(Files::isRegularFile)
                         .forEach(x -> {
                             try {
-                                parseFile(new File(x.toUri()));
+                                parseFile(x.toFile());
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -131,7 +148,7 @@ public class Interpretor {
         }
 
         try {
-            moveFiles();
+            Helper.moveFiles();
         } catch (IOException e) {
             e.printStackTrace();
         }
