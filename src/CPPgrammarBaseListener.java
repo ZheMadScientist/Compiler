@@ -179,5 +179,4 @@ public class CPPgrammarBaseListener implements CPPgrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void visitErrorNode(ErrorNode node) { }
-
 }
