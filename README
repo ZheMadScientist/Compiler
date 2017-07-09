@@ -1,5 +1,10 @@
 Нужные тесты следует поместить в папку res\tests
-После чего запустить Interpretor
+После чего запустить Interpretor (этот класс выполняет функции make.cmd)
 В папку res\Java сгенерируются полученные из тестов файлы .java
 Скомпилированные классы появятся в папке res\Java.compiled
+
 Для их запуска в папке res лежит скрипт run.cmd
+
+Скрипт clean.cmd удаляет генерируемые файлы из папок src, res\Java и res\Java.compiled
+
+Скрипт gen.cmd обновляет генерируемые грамматикой файлы (CPPgrammarListener, CPPgrammarBaseListener, CPPgrammarLexer, CPPgrammarParser, CPPgrammar.tokens, CPPgrammarLexer.tokens)

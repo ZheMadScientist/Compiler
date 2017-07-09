@@ -154,6 +154,18 @@ public class CPPgrammarBaseListener implements CPPgrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitStructuring(CPPgrammarParser.StructuringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterEqualiti(CPPgrammarParser.EqualitiContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEqualiti(CPPgrammarParser.EqualitiContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

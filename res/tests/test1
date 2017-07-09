@@ -2,18 +2,32 @@ struct Coordinates
 
  {
 
- double x, y;
+ double x, u, y;
 
  };
 
- struct Human
+ struct Point
 
  {
 
  string name;
 
- double weight;
+ double r;
 
  Coordinates coord;
 
  };
+
+  void main()
+ {
+ Coordinates coord;
+ coord.x = 3;
+ coord.u = 2;
+ coord.y = 1;
+
+Point point;
+point.name = "tipaPoint";
+point.coord.x = 5;
+point.coord.y = -1.346;
+point.coord.u = 2 + 847;
+ }

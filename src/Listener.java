@@ -1,5 +1,9 @@
 import org.antlr.v4.runtime.ParserRuleContext;
 
+import java.time.temporal.Temporal;
+
+import static java.lang.System.out;
+
 /**
  * Created by MakarOn on 06.07.2017.
  */
@@ -34,8 +38,9 @@ public class Listener extends CPPgrammarBaseListener {
 
     @Override
     public void enterOperation(CPPgrammarParser.OperationContext ctx) {
-        code += ctx.getText() + "\n";
-
+        if(!code.contains(ctx.getText())) {
+            code += ctx.getText() + "\n";
+        }
     }
 
     @Override

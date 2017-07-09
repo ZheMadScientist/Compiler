@@ -126,4 +126,14 @@ public interface CPPgrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStructuring(CPPgrammarParser.StructuringContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CPPgrammarParser#equaliti}.
+	 * @param ctx the parse tree
+	 */
+	void enterEqualiti(CPPgrammarParser.EqualitiContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CPPgrammarParser#equaliti}.
+	 * @param ctx the parse tree
+	 */
+	void exitEqualiti(CPPgrammarParser.EqualitiContext ctx);
 }

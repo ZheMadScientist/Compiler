@@ -1,0 +1,17 @@
+void main(){
+double a = 23523.3242;
+string str = "text";
+string str1 = "text";
+string str2 = "text1";
+cout<<(1==1);
+cout<<(1!=1);
+cout<<(str==str)<<endl;
+cout<<(str!=str)<<endl;
+cout << (str==str1) << endl;
+cout << (str!=str1) << endl;
+cout << (str==str2) << endl;
+cout << (str!=str2) << endl;
+cout << (10+22) << endl;
+cout << (str + str1 + " != " + str2) << endl;
+cout<<a;
+ }
