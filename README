@@ -1,12 +1,15 @@
-Нужные тесты следует поместить в папку res\tests
-После чего запустить Interpretor (этот класс выполняет функции make.cmd)
+Нужные тесты следует поместить в папку res\tests (там уже лежат стандартные тесты)
+После чего запустить Interpretor (этот класс также выполняет функции make.cmd)
 В папку res\Java сгенерируются полученные из тестов файлы .java
 Скомпилированные классы появятся в папке res\Java.compiled
 
-Для их запуска в папке res лежит скрипт run.cmd
-!При запуске скриптом автоматического тестирования (run.cmd) возможен вывод ошибок в консоль из-за того, что java компилятор компилирует вложенные классы в отдельные файлы
+Для запуска скомпилированных классов в папке res лежит скрипт run.cmd
+!При запуске скриптом (run.cmd автоматизированный скрипт запуска) возможен вывод ошибок вида:
+    "Error: Main method not found in class someClass, please define the main method as:
+        public static void main(String[] args)"
+!в консоль из-за того, что java компилятор компилирует вложенные классы в отдельные файлы
 
-Скрипт clean.cmd удаляет генерируемые файлы из папок src, res\Java и res\Java.compiled
+Скрипт clean.cmd удаляет генерируемые файлы из папок src, res\Java и res\Java.compiled, а также токены, генерируемы antlr
 
 Скрипт gen.cmd обновляет генерируемые грамматикой файлы (CPPgrammarListener, CPPgrammarBaseListener, CPPgrammarLexer, CPPgrammarParser, CPPgrammar.tokens, CPPgrammarLexer.tokens)
 
