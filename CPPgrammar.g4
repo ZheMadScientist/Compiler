@@ -35,7 +35,7 @@ mult_operation : (VALUE|INNER|ID) (OPERATOR_PRIORITY_1(ID|VALUE|INNER))*;
 typing: TYPE ID ASSIGN? (VALUE|ID|operation)? TZ? (BR ID ASSIGN? (VALUE|ID|operation)?)* TZ?;
 assignment: (ID|INNER) ASSIGN (operation|VALUE|ID|INNER) TZ;
 main: TYPE 'main' innsqbrackets inbrackets;
-printing: (PRINT (VALUE|INNER|ID|innsqbrackets) TZ) | (PRINT (VALUE|INNER|ID|innsqbrackets) NLCLEAR? TZ);
+printing:(PRINT (VALUE|INNER|ID|innsqbrackets) NLCLEAR? TZ) | (PRINT expr+ NLCLEAR? TZ);
 structuring: STRUCT ID inbrackets TZ;
 equaliti: (VALUE|ID|INNER) BOPERATOR (VALUE|ID|INNER);
 

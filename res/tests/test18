@@ -1,0 +1,91 @@
+struct A{
+    double a;
+    double b;
+    string s;
+    string s1;
+};
+struct B{
+    A a;
+    double a1;
+    double b;
+    string s;
+    string s1;
+};
+struct C{
+    A a;
+    B b;
+    double a1;
+    double b1;
+    string s;
+    string s1;
+};
+void main(){
+    A am;
+    B bm;
+    C cm;
+
+    am.a = 1;
+    am.b = 2;
+    am.s = "struct A string";
+    am.s1 = "struct A string1";
+
+    bm.a1 = 12;
+    bm.b = 22;
+    bm.s = "struct B string";
+    bm.s1 = "struct B string1";
+    bm.a.a = 212;
+    bm.a.b = 222;
+    bm.a.s = "struct A string in struct B";
+    bm.a.s1 = "struct A string1 in struct B";
+
+    cm.a1 = 123;
+    cm.b1 = 223;
+    cm.s = "struct C string";
+    cm.s1 = "struct C string1";
+    cm.a.a = 212;
+    cm.a.b = 222;
+    cm.a.s = "struct A string in struct C";
+    cm.a.s1 = "struct A string1 in struct C";
+    cm.b.a1 = 2124;
+    cm.b.b = 2224;
+    cm.b.s = "struct B string in struct C";
+    cm.b.s1 = "struct B string1 in struct C";
+    cm.b.a.a = 12341235.124;
+    cm.b.a.b = 123.0086;
+    cm.b.a.s = "struct A string in struct B in struct C";
+    cm.b.a.s1 = "struct A string1 in struct B in struct C";
+
+
+    cout<<am.a;
+    cout<<(am.b);
+    cout<<am.s;
+    cout<<am.s1;
+
+    cout<<bm.a1;
+    cout<<bm.b;
+    cout<<bm.s;
+    cout<<bm.s1;
+    cout<<bm.a.a;
+    cout<<bm.a.b;
+    cout<<bm.a.s;
+    cout<<bm.a.s1;
+
+    cout<<cm.a1;
+    cout<<cm.b1;
+    cout<<cm.s;
+    cout<<cm.s1;
+    cout<<cm.a.a;
+    cout<<cm.a.b;
+    cout<<cm.a.s;
+    cout<<cm.a.s1;
+    cout<<cm.b.a1;
+    cout<<cm.b.b;
+    cout<<cm.b.s;
+    cout<<cm.b.s1;
+    cout<<cm.b.a.a;
+    cout<<cm.b.a.b;
+    cout<<cm.b.a.s;
+    cout<<cm.b.a.s1;
+
+
+}

@@ -1,0 +1,7 @@
+void main(){
+    string str1 = "sometext";
+    string str2 = str1 + 2;
+    string p = "";
+    p += str1 + " " + str2;
+    cout<<p;
+  }
