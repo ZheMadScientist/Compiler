@@ -4,7 +4,7 @@
  
  Compiling in Java
 
-## Supporting features
+## Supported features
 
 ### Operators:
 { =, -, *, /, ==, !=, +=, *=, cout << string, cout << double , endl }
@@ -63,7 +63,7 @@ cout << (Petya.weight);
 
 }
 ```
-#### Expecting output:
+#### Expected output:
 ```
 Petr
 97.79
